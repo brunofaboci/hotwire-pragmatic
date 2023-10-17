@@ -1,5 +1,16 @@
 <div class="search">
-  <%= form_with(url: baits_path, method: :get) do |f| %>
+  <%
+=begin%>
+  No form_with abaixo, a função do codigo
+  "data: { turbo_frame: "results", turbo_action: "advance" }"
+  é fazer com que, primeiro, o turbo atualize a div abaixo com id "results"
+  sempre que uma busca for realizada, sem que o campo de busca perca o foco,
+  e segundo, a parte 'turbo_action: "advance"' adiciona os parametros da busca
+  à url
+<%
+=end%>
+  <%= form_with(url: baits_path, method: :get,
+        data: { turbo_frame: "results", turbo_action: "advance" }) do |f| %>
     <div>
       <%= f.search_field :name, placeholder: 'Name...',
             value: params[:name] %>
@@ -19,6 +30,8 @@
   <% end %>
 </div>
 
-<div class="baits">
-  <%= render @baits %>
-</div>
+<%= turbo_frame_tag "results" do %>
+  <div class="baits">
+    <%= render @baits %>
+  </div>
+<% end %>

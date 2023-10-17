@@ -1,0 +1,26 @@
+<%
+=begin%>
+ <turbo-stream action='replace' target='bait_1'>
+  <template>
+    <%= render partial: "baits/bait", object: @bait %>
+  </template>
+</turbo-stream>
+<%
+=end%>
+
+<%
+=begin%>
+ <%= turbo_stream.replace dom_id(@bait), render partial: "baits/bait", object: @bait %>
+<%
+=end%>
+
+<%
+=begin%>
+os blocos de codigo acima podem ser reduzidos ao codigo abaixo
+<%
+=end%>
+<%= turbo_stream.replace @bait, partial: "baits/bait", locals: { bait: @bait } %>
+
+<%= turbo_stream.update "tackle_box_items_count" do %>
+  <%= current_user.tackle_box_items.size %>
+<% end %>
