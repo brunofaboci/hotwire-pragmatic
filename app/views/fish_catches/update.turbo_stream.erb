@@ -3,3 +3,5 @@
 <%= turbo_stream.replace dom_id(@fish_catch) do %>
   <%= render "fish_catch", fish_catch: @fish_catch %>
 <% end %>
+
+<%= render_flash_stream %>

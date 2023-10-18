@@ -22,7 +22,10 @@ class FishCatchesController < ApplicationController
       if @fish_catch.update(fish_catch_params)
         format.turbo_stream do
           @fish_catches = fish_catches_for_bait(@fish_catch.bait)
+
+          flash.now[:notice] = "Catch Successfuly Update!"
         end
+
         format.html do
           redirect_to tackle_box_item_for_catch(@fish_catch)
         end
@@ -39,6 +42,8 @@ class FishCatchesController < ApplicationController
         @fish_catches = fish_catches_for_bait(@fish_catch.bait)
 
         @new_catch = current_user.fish_catches.new(bait: @fish_catch.bait)
+
+        flash.now[:notice] = "Catch Successfuly Create!"
       else
         render :new, status: :unprocessable_entity
       end
@@ -65,6 +70,8 @@ class FishCatchesController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         @fish_catches = fish_catches_for_bait(@fish_catch.bait)
+
+        flash.now[:notice] = "Catch Successfuly Delete!"
       end
 
       format.html { redirect_to tackle_box_item_for_catch(@fish_catch) }
